@@ -7,16 +7,28 @@ class Block {
         this.data = data;
         this.previousHash = previousHash;
         this.hash = this.calculateHash();
+        this.nonce = 0;
     }
 
     calculateHash() {
-        return SHA256(this.index + this.timestamp + JSON.stringify(this.data) + this.previousHash).toString();
+        return SHA256(this.index + this.timestamp + JSON.stringify(this.data) + this.previousHash + this.nonce).toString();
+    }
+
+    mineBlock(difficulty) {
+        while(this.hash.substring(0, difficulty) != Array(difficulty +1).join("0")) { // Trick to test whether hash start with enough "0" length or not
+            this.nonce++; // increment nonce until hash has enough "0" after hashed
+            this.hash = this.calculateHash();
+        }
+
+        console.log("Block mined: " + this.hash);
+        console.log(this.nonce);
     }
 }
 
 class BlockChain {
     constructor() {
         this.chain = [this.createFirstBlock()];
+        this.difficulty = 4;
     }
 
     createFirstBlock() {
@@ -29,7 +41,8 @@ class BlockChain {
 
     addBlock(newBlock) {
         newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
+        // newBlock.hash = newBlock.calculateHash();
+        newBlock.mineBlock(this.difficulty);
         this.chain.push(newBlock);
     }
 
@@ -51,8 +64,11 @@ class BlockChain {
 }
 
 let myCoin = new BlockChain();
+
+console.log("Mining block 1: ");
 myCoin.addBlock(new Block(1, "05/05/2021", { amount: 10}));
+console.log("Mining block 2: ");
 myCoin.addBlock(new Block(2, "05/05/2021", { amount: 20}));
 
-console.log(JSON.stringify(myCoin, null, 4));
-console.log("Is chain valid? " + myCoin.isChainValid());
+// console.log(JSON.stringify(myCoin, null, 4));
+// console.log("Is chain valid? " + myCoin.isChainValid());

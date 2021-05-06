@@ -1,10 +1,43 @@
 const SHA256 = require("crypto-js/sha256");
+const EC = require('elliptic').ec;
+const ec = new EC('secp256k1');
 
 class Transaction {
     constructor(fromAddress, toAddress, amount) {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.amount = amount;
+    }
+
+    // Creates a SHA256 hash of the transaction
+    calculateHash() {
+        return SHA256(this.fromAddress + this.toAddress + this.amount).toString();
+    }
+
+    
+    // Signs a transaction with the given signingKey (which is an Elliptic keypair object that contains a private key). 
+    // The property signature is then stored inside the transaction object and later stored on the blockchain.
+    signTransaction (signingKey) {
+        if (signingKey.getPublic('hex') !== this.fromAddress) {  // check if the fromAddress matches your publicKey
+            throw new Error('You cannot sign transactions from other wallets! Must be your wallet!');
+        }   
+
+        // Calculate the hash of this transaction, sign it with the key and store it inside the transaction object
+        const hashTx = this.calculateHash();
+        const sig = signingKey.sign(hashTx, 'base64');
+
+        this.signature = sig.toDER('hex');
+    }
+
+    isValid() {
+        if (this.fromAddress === null) return true; // valid because mining reward for miners, watch on blochain mining reward props
+    
+        if (!this.signature || this.signature.length === 0) {
+          throw new Error('No signature in this transaction');
+        }
+    
+        const publicKey = ec.keyFromPublic(this.fromAddress, 'hex');
+        return publicKey.verify(this.calculateHash(), this.signature); // verify if this hash has been signed by this signature.
     }
 }
 
@@ -30,6 +63,18 @@ class Block {
         console.log("Block mined: " + this.hash);
         // console.log(this.nonce);
     }
+
+    // Validates all the transactions inside this block (signature + hash) 
+    // then returns true if everything checks out, false if the block is invalid.
+    hasValidTransactions() {
+        for (const tx of this.transactions) {
+            if (!tx.isValid()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 class BlockChain {
@@ -41,7 +86,7 @@ class BlockChain {
     }
 
     createFirstBlock() {
-        return new Block("05/05/2021", "First Block", 0);
+        return new Block("05/05/2021", [], 0);
     }
 
     getLatestBlock() {
@@ -65,7 +110,22 @@ class BlockChain {
         this.pendingTransactions = [new Transaction(null, miningRewardAddress, this.miningReward)];
     }
 
-    createTransaction (transaction) {
+    addTransaction (transaction) {
+        if (!transaction.fromAddress || !transaction.toAddress) {
+            throw new Error('Transaction must include from and to address');
+        }
+
+        if (!transaction.isValid()) {
+            throw new Error('Cannot add invalid transaction to chain');
+        }
+        
+        if (transaction.amount <= 0) {
+            throw new Error('Transaction amount must be higher than 0');
+        }
+        
+        // if (this.getBalanceOfAnAddress(transaction.fromAddress) < transaction.amount) {
+        //     throw new Error('Not enough balance to add this transaction');
+        // }
         this.pendingTransactions.push(transaction);
     }
 
@@ -89,6 +149,10 @@ class BlockChain {
             let previousBlock = this.chain[i -1];
             let currentBlock = this.chain[i];
 
+            if (!currentBlock.hasValidTransactions()) {
+                return false;
+            }
+
             if (currentBlock.hash != currentBlock.calculateHash()){
                 return false;
             }
@@ -101,26 +165,5 @@ class BlockChain {
     }
 }
 
-let myCoin = new BlockChain();
-myCoin.createTransaction(new Transaction("address1", "address2", 100)); // Address is a public key of a wallet
-myCoin.createTransaction(new Transaction("address2", "address1", 50));
-
-console.log("Start mining...");
-myCoin.minePendingTransaction("myaddress");
-console.log("Balance of my address is: " + myCoin.getBalanceOfAnAddress("myaddress"));
-
-console.log("Start mining...");
-myCoin.minePendingTransaction("myaddress");
-console.log("Balance of my address is: " + myCoin.getBalanceOfAnAddress("myaddress"));
-
-console.log("Start mining...");
-myCoin.minePendingTransaction("myaddress");
-console.log("Balance of my address is: " + myCoin.getBalanceOfAnAddress("myaddress"));
-
-// console.log("Mining block 1: ");
-// myCoin.addBlock(new Block(1, "05/05/2021", { amount: 10}));
-// console.log("Mining block 2: ");
-// myCoin.addBlock(new Block(2, "05/05/2021", { amount: 20}));
-
-// console.log(JSON.stringify(myCoin, null, 4));
-// console.log("Is chain valid? " + myCoin.isChainValid());
+module.exports.BlockChain = BlockChain;
+module.exports.Transaction = Transaction;

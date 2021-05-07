@@ -9,7 +9,7 @@ function Wallet(props) {
         iWalletActive, 
         getIdChangeWallet, 
         sendCoin,
-        // walletHistory
+        walletHistory
     } = props;
     const [valueForm, setValueForm] = useState(''); // name from create wallet form
     const [sendCoinForm, setSendCointForm] = useState(0); // coin from send coin
@@ -57,6 +57,19 @@ function Wallet(props) {
         setIdReciever(0);
     }
 
+    function showHistoryFromEnd (history) {
+        var elements = [];
+        if (history.length === 0){
+            return <p>There is no transaction with this wallet.</p>;
+        }
+        for(let i = history.length - 1; i >= 0; i--){
+            elements.push(
+                <p>{history[i]}</p>
+            );
+        }
+        return elements;
+    }
+
     return (
         <div className="col-4">
 
@@ -77,6 +90,7 @@ function Wallet(props) {
                     <div className="card-content-small">
                         <button className="btn btn-danger btnsendcoid">Send Coin</button>
                         <button className="btn btn-warning btnview">View Statistics</button>
+                        <button className="btn btn-warning btnviewhistory">View History</button>
                         {/* <button className="btn btn-warning btnviewhistory">View history</button> */}
                     </div>
                     <div className="card card-send-coin">
@@ -143,17 +157,18 @@ function Wallet(props) {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="card card-history">
+                    <div className="card card-view-history">
                         <div className="card-header card-coin">
                             <span>Wallet History</span>
-                            <i style={{cursor: 'pointer'}} className="fas fa-times-circle iconexit" />
+                            <i style={{cursor: 'pointer'}} className="fas fa-times-circle iconexithistory" />
                         </div>
                         <div className="card-body">
-                            {walletHistory.map(h => (
+                            {showHistoryFromEnd(walletHistory)}
+                            {/* {walletHistory.map(h => (
                                 <p>{h}</p>
-                            ))}      
+                            ))}       */}
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
             

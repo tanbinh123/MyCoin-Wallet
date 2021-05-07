@@ -1,11 +1,11 @@
 import React from 'react';
-import Blockchain from './components/Blockchain'
+import Blockchain from './components/Blockchain/Blockchain'
 
 class App extends React.Component {
 
   render() {
       return (
-          <div className="ui container" style={{ marginTop: '10px' }}>
+          <div>
             <Blockchain />
           </div>
       );

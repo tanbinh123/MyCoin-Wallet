@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function(){
     let cardview = document.getElementsByClassName('card-view')[0];
     const iconexit = document.getElementsByClassName('iconexit')[0];
 
-    const btnviewhistory = document.getElementsByClassName('btnviewhistory')[0];
-    let cardviewhistory = document.getElementsByClassName('card-view-history')[0];
-    const iconexithistory = document.getElementsByClassName('iconexithistory')[0];
+    // const btnviewhistory = document.getElementsByClassName('btnviewhistory')[0];
+    // let cardviewhistory = document.getElementsByClassName('card-view-history')[0];
+    // const iconexithistory = document.getElementsByClassName('iconexithistory')[0];
 
     const btncreatewallet = document.getElementsByClassName('btncreatewallet')[0];
     const btnchangewallet = document.getElementsByClassName('btnchangewallet')[0];
@@ -58,20 +58,20 @@ document.addEventListener("DOMContentLoaded", function(){
     	cardview.classList.remove('xuathien');
     }
 
-    // button click view history
+    // // button click view history
 
-    btnviewhistory.onclick = () =>{
-    	cardviewhistory.classList.toggle('xuathien');
-        cardview.classList.remove('xuathien');
-        sendcoinform.classList.remove('xuathien');
-        cardchangewallet.classList.remove('xuathien');
-        cardcreatewallet.classList.remove('xuathien');
-        formcreatewallet.reset();
-        document.getElementById('formsendcoin').reset();
-    }
-    iconexithistory.onclick = () =>{
-    	cardviewhistory.classList.remove('xuathien');
-    }
+    // btnviewhistory.onclick = () =>{
+    // 	cardviewhistory.classList.toggle('xuathien');
+    //     cardview.classList.remove('xuathien');
+    //     sendcoinform.classList.remove('xuathien');
+    //     cardchangewallet.classList.remove('xuathien');
+    //     cardcreatewallet.classList.remove('xuathien');
+    //     formcreatewallet.reset();
+    //     document.getElementById('formsendcoin').reset();
+    // }
+    // iconexithistory.onclick = () =>{
+    // 	cardviewhistory.classList.remove('xuathien');
+    // }
 
     
     

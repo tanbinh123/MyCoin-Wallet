@@ -9,7 +9,7 @@ function Wallet(props) {
         iWalletActive, 
         getIdChangeWallet, 
         sendCoin,
-        walletHistory
+        // walletHistory
     } = props;
     const [valueForm, setValueForm] = useState(''); // name from create wallet form
     const [sendCoinForm, setSendCointForm] = useState(0); // coin from send coin
@@ -57,18 +57,18 @@ function Wallet(props) {
         setIdReciever(0);
     }
 
-    function showHistoryFromEnd (history) {
-        var elements = [];
-        if (history.length === 0){
-            return <p>There is no transaction with this wallet.</p>;
-        }
-        for(let i = history.length - 1; i >= 0; i--){
-            elements.push(
-                <p>{history[i]}</p>
-            );
-        }
-        return elements;
-    }
+    // function showHistoryFromEnd (history) {
+    //     var elements = [];
+    //     if (history.length === 0){
+    //         return <p>There is no transaction with this wallet.</p>;
+    //     }
+    //     for(let i = history.length - 1; i >= 0; i--){
+    //         elements.push(
+    //             <p>{history[i]}</p>
+    //         );
+    //     }
+    //     return elements;
+    // }
 
     return (
         <div className="col-4">
@@ -162,12 +162,9 @@ function Wallet(props) {
                             <span>Wallet History</span>
                             <i style={{cursor: 'pointer'}} className="fas fa-times-circle iconexithistory" />
                         </div>
-                        <div className="card-body">
+                        {/* <div className="card-body">
                             {showHistoryFromEnd(walletHistory)}
-                            {/* {walletHistory.map(h => (
-                                <p>{h}</p>
-                            ))}       */}
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

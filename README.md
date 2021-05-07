@@ -5,18 +5,15 @@ Họ và tên: Phạm Minh Hoàng - MSSV: 1712460
 Bài tập cá nhân Blockchain
 Xây dựng hệ thống tiền điện tử MyCoin
 Các công nghệ mới trong phát triển phần mềm - CQ2017/3
------Link demo---------
-https://youtube.com
+> Link demo: https://youtube.com
 
------Link Github-------
-https://github.com/hoangpm6814/MyCoin-Wallet
+> Link Github: https://github.com/hoangpm6814/MyCoin-Wallet
 
 ## Cài đặt modules/dependencies
-###`npm install`
+### `npm install`
 
 ## Chạy chương trình
-###`npm start`
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `npm start`
 
 # Các chức năng của project
 ## Tạo ví
@@ -40,7 +37,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 Vì project này chỉ tạo một coin đơn giản nên tác giả chưa thêm vào những yếu tố phức tạp khác của một coin điển hình như 
 - Một Wallet cần phải có public key và private key, muốn thêm một transaction thì phải ký (sign) vào transaction đó
 - Thêm transaction được tạo vào pending transactions, sau đó mine block theo độ khó cũng như có mining rewards linh hoạt (thay vì hardcode như project hiện tại)
-Các yêu cầu trên hoàn toàn có thể thực hiện được nếu nâng cấp MyCoin này, tuy nhiên, để đơn giản vấn đề tác giả chỉ tạo một Wallet với tên sau đó gửi coin mà thôi, các yếu tố như mining difficulty và mining rewards cũng chỉ được hardcode.
+> Các yêu cầu trên hoàn toàn có thể thực hiện được nếu nâng cấp MyCoin này, tuy nhiên, để đơn giản vấn đề tác giả chỉ tạo một Wallet với tên sau đó gửi coin mà thôi, các yếu tố như mining difficulty và mining rewards cũng chỉ được hardcode.
 
 ## Tham khảo
 - Slide bài giảng thầy Trần Văn Quý

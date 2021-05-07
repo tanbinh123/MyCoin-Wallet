@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Block from "./Block";
-class Blockchain extends Component {
+class BlockChain extends Component {
     render() {
         return (
             <div>
@@ -13,4 +13,4 @@ class Blockchain extends Component {
     }
 }
 
-export default Blockchain;
+export default BlockChain;

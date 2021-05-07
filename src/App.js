@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import Wallet from "./components/Wallet/Wallet"
+import Wallet from "./components/Wallet/Wallet";
+import BlockChain from "./components/Blockchain/BlockChain";
 const SHA256 = require("crypto-js/sha256");
 
 const difficulty = 2; // should be max at 4 to be fast
@@ -192,7 +193,6 @@ function App() {
               </div>
             </div>
 
-
             <div class="form-group">
               <label for="miningReward">Mining reward</label>
               <input type="number" class="form-control" id="miningReward" value={miningReward} onChange={e => setMiningReward(e.target.value)} />
@@ -210,6 +210,10 @@ function App() {
           </div> */}
 
           <div className="row">
+            <BlockChain 
+              blocks={block}
+              history={history} 
+            />
             <Wallet 
               myWallet={wallets[indexWalletActive]} 
               wallets={wallets}

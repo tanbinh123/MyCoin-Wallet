@@ -90,7 +90,7 @@ function Wallet(props) {
                     <div className="card-content-small">
                         <button className="btn btn-danger btnsendcoid">Send Coin</button>
                         <button className="btn btn-warning btnview">View Statistics</button>
-                        <button className="btn btn-warning btnviewhistory">View History</button>
+                        {/* <button className="btn btn-warning btnviewhistory">View History</button> */}
                         {/* <button className="btn btn-warning btnviewhistory">View history</button> */}
                     </div>
                     <div className="card card-send-coin">
@@ -157,15 +157,15 @@ function Wallet(props) {
                             </div>
                         </div>
                     </div>
-                    <div className="card card-view-history">
+                    {/* <div className="card card-view-history">
                         <div className="card-header card-coin">
                             <span>Wallet History</span>
                             <i style={{cursor: 'pointer'}} className="fas fa-times-circle iconexithistory" />
                         </div>
-                        {/* <div className="card-body">
+                        <div className="card-body">
                             {showHistoryFromEnd(walletHistory)}
-                        </div> */}
-                    </div>
+                        </div>
+                    </div> */}
                 </div>
             </div>
             
